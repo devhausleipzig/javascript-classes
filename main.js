@@ -79,7 +79,11 @@ For any of the "wiring" or "piping" between things, or for the behavior of utili
 
 
 class ToDoItem {
-    
+    title; // these declarations are optional usually
+    taskDescription;
+    deadline;
+    isCompleted;
+
     constructor(title, description, deadline) {
         this.title = title;
         this.taskDescription = description;
@@ -157,8 +161,14 @@ myToDoList.checkDeadlines('12:00')
 
 // member, attribute vs. method, attribute vs. property
 
-// in JavaScript, attributes and properties are basically the same
-// attributes are values on class, properties are values in an object/dictionary
+// attributes are values on a class, properties are values in an object/dictionary
+// in JavaScript, attributes and properties are basically the same and no distinction is observed
+
+// in other languages, like Python, it's different
+// in Python:
+// myDictionary['someKey'] // <-- only works if myDictionary is actually a dictionary
+// myDictionary.someKey // <-- throws an error if someKey is not explicitly an attribute of the class, even if the dictionary has a key callled 'someKey'
+
 
 
 class Human {
@@ -179,11 +189,6 @@ const franzHuman = new Human()
 
 franzHuman.head // attribute
 franzHuman.walk() // method
-
-// in other languages, like Python, it's different
-// in Python:
-// myDictionary['someKey'] // <-- only works if myDictionary is actually a dictionary
-// myDictionary.someKey // <-- throws an error if someKey is not explicitly an attribute of the class
 
 
 
@@ -244,15 +249,14 @@ class WaitingRoom {
     }
 
     set waitingOrder(arg) {
-        // do something with arg
-        // maybe modify WaitingRoom.collectionOfPeople
+        // use arg to modify WaitingRoom.collectionOfPeople and change waiting order
     }
-
 }
 
 
 
 // the 'static' keyword (class only members)
+
 class NewColorful {
     static onlyOnClass = `I'm only available from the class`;
 
@@ -261,7 +265,7 @@ class NewColorful {
     }
 
     static beColorful() {
-        console.log(`I'm a lovely shade of ${this.color}!`)
+        console.log(`I'm only available from the class!`)
     }
 }
 
@@ -275,20 +279,28 @@ NewColorful.beColorful()
 
 
 // private members
+
 class ExampleClass {
-    #private;
+    #privateAttr;
 
     constructor(arg){
-        this.#private = arg;
+        this.#privateAttr = arg;
         // in TypeScript
         // private this.color = color;
     }
 
     // in TypeScript
     // private exampleMethod
-    #exampleMethod() {
-        console.log(`${this.#private}`)
+    #privateMethod() {
+        console.log(`${this.#privateAttr}`)
         // in TypeScript
         // console.log(`${this.private}`)
     }
 }
+
+const myExample = new ExampleClass('test')
+
+// these will throw an error because we're trying to use them outside of the class definition
+
+// myExample.#private
+// myExample.#privateMethod()
